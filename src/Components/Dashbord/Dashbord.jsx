@@ -14,15 +14,11 @@ import { useNavigate } from "react-router-dom";
 const Dashbord = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [search, seatsearch] = useState("title");
-  const [query, seatquery] = useState("");
-
   const [currObj, setCurrObj] = useState({});
   const [edittedData, setEditedData] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, isError, isLoading, loggedin } = useSelector(
-    (state) => state.prod
-  );
+  const { products, loggedin } = useSelector((state) => state.prod);
 
   const handelLogout = () => {
     dispatch(loguot());
@@ -34,7 +30,6 @@ const Dashbord = () => {
     setShowEdit(true);
     setCurrObj(elem);
   };
-  //   console.log(edittedData);
 
   const handeleditsubmit = (e) => {
     setShowEdit(false);
@@ -49,20 +44,14 @@ const Dashbord = () => {
   };
 
   const searchhandler = (e) => {
-    // seatquery(() => e.target.value);
-
     if (e.target.value == "") {
-      //   console.log("no input");
       dispatch(getdata());
     }
     if (e.code == "Space") {
-      //   console.log("space entred");
       dispatch(searchData(search, e.target.value.trim()));
     }
   };
   const handelsort = (e) => {
-    // console.log(e.target.checked);
-    //
     dispatch(sortby(e.target.checked));
   };
 
@@ -76,6 +65,7 @@ const Dashbord = () => {
     <>
       <div className="dashbordDiv">
         <div className="searchAndFilterbox">
+          <div style={{}}></div>
           <input
             type="text"
             name=""
@@ -83,6 +73,7 @@ const Dashbord = () => {
             onKeyUp={searchhandler}
             placeholder="search products"
           />
+          <span>filter by</span>
           <select
             name=""
             defaultValue={search}
@@ -112,18 +103,10 @@ const Dashbord = () => {
             {"  "}
             <p> &nbsp; Asc</p>
           </div>
-          {/* <label className="switch">
-            <input
-              //   checked={false}
-              onChange={handelsort}
-              className="switch-input"
-              type="checkbox"
-            />
-            <span className="switch-label" data-on="Asc" data-off="Desc"></span>
-            <span className="switch-handle"></span>
-          </label> */}
-
           <button onClick={handelLogout}>signout</button>
+        </div>
+        <div>
+          <h2> **Press space after search query for search</h2>
         </div>
         <div className="tablebox">
           <table cellPadding="20" cellSpacing="0" border="0">
